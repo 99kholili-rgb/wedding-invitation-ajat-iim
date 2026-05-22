@@ -959,10 +959,10 @@
                 }
             }, true);
 
-            // Setup intersection observer untuk semua sections
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                observer.observe(section);
+            // KODE BARU (Memantau <section> DAN <footer>)
+            const targets = document.querySelectorAll('section, footer');
+            targets.forEach(target => {
+            observer.observe(target);
             });
         });
 
