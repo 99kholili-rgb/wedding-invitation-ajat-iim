@@ -803,129 +803,72 @@
 
     <!-- ================= PREMIUM MODAL: KADO DIGITAL (ANGPAO ONLINE) ================= -->
     <div id="gift-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-all duration-300">
-        <div class="glass-premium max-w-md w-full rounded-[35px] p-6 shadow-2xl relative overflow-hidden animate__animated animate__zoomIn">
-            <div class="absolute top-0 inset-x-0 h-[2px] bg-gold-gradient"></div>
-            
-            <!-- Close Button -->
-            <button onclick="closeGiftModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 text-stone-300 hover:text-white flex items-center justify-center focus:outline-none transition-all">
-                <i class="fas fa-times"></i>
-            </button>
+     <!-- ================= PREMIUM MODAL: KADO DIGITAL (ANGPAO ONLINE) ================= -->
+<div id="gift-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <!-- Kontainer Modal -->
+    <div id="gift-modal-content" class="glass-premium max-w-md w-full rounded-[35px] p-6 shadow-2xl relative overflow-hidden transform scale-95 transition-transform duration-300">
+        <!-- Garis Aksen Emas di Atas -->
+        <div class="absolute top-0 inset-x-0 h-[3px] bg-gold-gradient"></div>
+        
+        <!-- Tombol Tutup (Close) -->
+        <button onclick="closeGiftModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-red-500/80 text-stone-300 hover:text-white flex items-center justify-center focus:outline-none transition-all duration-300">
+            <i class="fas fa-times"></i>
+        </button>
 
-            <!-- Header -->
-            <div class="text-center mb-6 mt-2">
-                <i class="fas fa-wallet text-amber-500 text-3xl mb-2"></i>
-                <h3 class="font-serif-elegant text-2xl font-bold text-gold-gradient">Kado Digital</h3>
-                <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider">Kirim Tanda Kasih & Hadiah</p>
+        <!-- Header Modal -->
+        <div class="text-center mb-6 mt-4">
+            <div class="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-3 border border-amber-500/20">
+                <i class="fas fa-wallet text-amber-400 text-2xl animate-pulse"></i>
+            </div>
+            <h3 class="font-serif-elegant text-2xl font-bold text-gold-gradient">Kado Digital</h3>
+            <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-widest">Kirim Tanda Kasih & Hadiah</p>
+        </div>
+
+        <p class="text-xs text-stone-300 text-center leading-relaxed mb-6 px-2">
+            Bagi Bapak/Ibu/Saudara/i yang ingin mengirimkan kado digital tanpa mengurangi rasa hormat, dapat melalui rekening di bawah ini:
+        </p>
+
+        <!-- Daftar Rekening -->
+        <div class="space-y-4">
+            <!-- Rekening 1: BCA -->
+            <div class="bg-black/50 border border-white/10 rounded-2xl p-4 flex justify-between items-center relative overflow-hidden group hover:border-amber-500/30 transition-colors">
+                <div class="space-y-1">
+                    <span class="inline-block text-[9px] bg-blue-900/40 text-blue-300 font-extrabold uppercase px-2 py-0.5 rounded border border-blue-500/30">BANK BCA</span>
+                    <p id="acc-modal-bca" class="font-serif-elegant font-bold text-lg text-stone-100 tracking-wider mt-1">4121408273</p>
+                    <p class="text-[10px] text-stone-400">a.n <strong class="text-stone-200">Sudrajat</strong></p>
+                </div>
+                <button onclick="copyToClipboard('acc-modal-bca', 'btn-copy-bca')" id="btn-copy-bca" class="px-3 py-2 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-stone-900 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex flex-col items-center gap-1">
+                    <i class="far fa-copy text-sm"></i>
+                    <span>Salin</span>
+                </button>
             </div>
 
-            <p class="text-xs text-stone-300 text-center leading-relaxed mb-6">
-                Bagi Bapak/Ibu/Saudara/i yang ingin mengirimkan kado digital/hadiah tanpa mengurangi rasa hormat, dapat mengirimkannya melalui metode pembayaran di bawah ini:
-            </p>
-
-            <!-- Payment Accounts (Cards) -->
-            <div class="space-y-4">
-                
-                <!-- Bank Card 1 -->
-                <div class="bg-black/40 border border-white/10 rounded-2xl p-4 flex justify-between items-center relative overflow-hidden">
-                    <div class="space-y-1">
-                        <span class="text-[9px] bg-amber-500/15 text-amber-400 font-extrabold uppercase px-2 py-0.5 rounded">BANK BCA</span>
-                        <p id="acc-num-1-modal" class="font-serif-elegant font-bold text-lg text-stone-100 tracking-wider">4121408273</p>
-                        <p class="text-[10px] text-stone-400">Atas Nama: <strong class="text-stone-300">Sudrajat</strong></p>
-                    </div>
-                    <button onclick="copyToClipboard('acc-num-1-modal', 'btn-copy-1-modal')" id="btn-copy-1-modal" class="px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-stone-900 rounded text-xs font-bold transition-all">
-                        Salin Rekening
-                    </button>
+            <!-- Rekening 2: Mandiri -->
+            <div class="bg-black/50 border border-white/10 rounded-2xl p-4 flex justify-between items-center relative overflow-hidden group hover:border-amber-500/30 transition-colors">
+                <div class="space-y-1">
+                    <span class="inline-block text-[9px] bg-yellow-900/40 text-yellow-300 font-extrabold uppercase px-2 py-0.5 rounded border border-yellow-500/30">BANK MANDIRI</span>
+                    <p id="acc-modal-mandiri" class="font-serif-elegant font-bold text-lg text-stone-100 tracking-wider mt-1">1760007344581</p>
+                    <p class="text-[10px] text-stone-400">a.n <strong class="text-stone-200">Nurhalimah</strong></p>
                 </div>
-
-                <!-- Bank Card 2 -->
-                <div class="bg-black/40 border border-white/10 rounded-2xl p-4 flex justify-between items-center relative overflow-hidden">
-                    <div class="space-y-1">
-                        <span class="text-[9px] bg-amber-500/15 text-amber-400 font-extrabold uppercase px-2 py-0.5 rounded">BANK MANDIRI</span>
-                        <p id="acc-num-2-modal" class="font-serif-elegant font-bold text-lg text-stone-100 tracking-wider">1760007344581</p>
-                        <p class="text-[10px] text-stone-400">Atas Nama: <strong class="text-stone-300">Nurhalimah</strong></p>
-                    </div>
-                    <button onclick="copyToClipboard('acc-num-2-modal', 'btn-copy-2-modal')" id="btn-copy-2-modal" class="px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-stone-900 rounded text-xs font-bold transition-all">
-                        Salin Rekening
-                    </button>
-                </div>
-
-            </div>
-
-            <!-- Toast Notification Inside Modal -->
-            <div id="copy-toast" class="hidden mt-4 p-2 bg-green-950/80 border border-green-500/30 text-green-300 rounded-xl text-[10px] text-center uppercase tracking-widest animate__animated animate__fadeIn">
-                <i class="fas fa-check-circle mr-1"></i> Nomor Rekening Berhasil Disalin!
+                <button onclick="copyToClipboard('acc-modal-mandiri', 'btn-copy-mandiri')" id="btn-copy-mandiri" class="px-3 py-2 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-stone-900 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex flex-col items-center gap-1">
+                    <i class="far fa-copy text-sm"></i>
+                    <span>Salin</span>
+                </button>
             </div>
         </div>
+
+        <!-- Notifikasi (Toast) Berhasil Disalin -->
+        <div id="copy-toast-modal" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 p-3 bg-emerald-900/90 border border-emerald-500/50 text-emerald-300 rounded-xl text-[10px] text-center uppercase tracking-widest opacity-0 pointer-events-none transition-opacity duration-300 shadow-2xl backdrop-blur-sm z-50">
+            <i class="fas fa-check-circle mr-1"></i> Nomor Rekening Berhasil Disalin!
+        </div>
     </div>
+</div>  
 
 
     <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         
-        // --- Fungsi Buka/Tutup Modal Kado Digital ---
-const giftModal = document.getElementById('gift-modal');
-const giftModalContent = document.getElementById('gift-modal-content');
-
-function openGiftModal() {
-    // Tampilkan overlay
-    giftModal.classList.remove('opacity-0', 'pointer-events-none');
-    // Animasi scale-up kontainer
-    setTimeout(() => {
-        giftModalContent.classList.remove('scale-95');
-        giftModalContent.classList.add('scale-100');
-    }, 10);
-    // Kunci scroll halaman belakang
-    document.body.classList.add('overflow-hidden');
-}
-
-function closeGiftModal() {
-    // Animasi scale-down kontainer
-    giftModalContent.classList.remove('scale-100');
-    giftModalContent.classList.add('scale-95');
-    // Sembunyikan overlay setelah animasi selesai
-    setTimeout(() => {
-        giftModal.classList.add('opacity-0', 'pointer-events-none');
-        // Buka kunci scroll halaman belakang
-        document.body.classList.remove('overflow-hidden');
-    }, 300);
-}
-
-// Tutup modal jika area luar (backdrop) diklik
-giftModal.addEventListener('click', function(event) {
-    if (event.target === giftModal) {
-        closeGiftModal();
-    }
-});
-
-// --- Fungsi Salin Teks ke Clipboard ---
-function copyToClipboard(elementId, buttonId) {
-    const textToCopy = document.getElementById(elementId).innerText;
-    const button = document.getElementById(buttonId);
-    const toast = document.getElementById('copy-toast-modal');
-
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        // Ubah tampilan tombol sementara
-        const originalHTML = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check text-sm"></i><span>Oke!</span>';
-        button.classList.replace('bg-amber-500/10', 'bg-emerald-500/20');
-        button.classList.replace('text-amber-400', 'text-emerald-400');
-
-        // Munculkan Toast Notifikasi
-        toast.classList.remove('opacity-0');
-
-        // Kembalikan ke tampilan semula setelah 2.5 detik
-        setTimeout(() => {
-            button.innerHTML = originalHTML;
-            button.classList.replace('bg-emerald-500/20', 'bg-amber-500/10');
-            button.classList.replace('text-emerald-400', 'text-amber-400');
-            toast.classList.add('opacity-0');
-        }, 2500);
-    }).catch(err => {
-        console.error('Gagal menyalin teks: ', err);
-        alert('Browser Anda tidak mendukung fitur salin otomatis.');
-    });
-}
-        // Intersection Observer untuk trigger animasi saat scroll
+                // Intersection Observer untuk trigger animasi saat scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1121,35 +1064,69 @@ function copyToClipboard(elementId, buttonId) {
             }, 1000);
         });
 
-        // Copy to Clipboard Function
-        function copyToClipboard(elementId, buttonId) {
-            const element = document.getElementById(elementId);
-            const button = document.getElementById(buttonId);
-            const text = element.innerText;
+                   // --- Fungsi Buka/Tutup Modal Kado Digital ---
+const giftModal = document.getElementById('gift-modal');
+const giftModalContent = document.getElementById('gift-modal-content');
 
-            navigator.clipboard.writeText(text).then(() => {
-                // Show success toast
-                const toastId = buttonId.includes('hadiah') ? 'copy-toast-hadiah' : 'copy-toast';
-                const toast = document.getElementById(toastId);
-                if (toast) {
-                    toast.classList.remove('hidden');
-                    
-                    // Change button text temporarily
-                    const originalText = button.innerText;
-                    button.innerText = '✓ Tersalin';
-                    button.classList.add('bg-green-500/20', 'text-green-400');
-                    button.classList.remove('bg-amber-200/6', 'text-amber-200');
-                    
-                    setTimeout(() => {
-                        toast.classList.add('hidden');
-                        button.innerText = originalText;
-                        button.classList.remove('bg-green-500/20', 'text-green-400');
-                        button.classList.add('bg-amber-200/6', 'text-amber-200');
-                    }, 2000);
-                }
-            });
-        }
+function openGiftModal() {
+    // Tampilkan overlay
+    giftModal.classList.remove('opacity-0', 'pointer-events-none');
+    // Animasi scale-up kontainer
+    setTimeout(() => {
+        giftModalContent.classList.remove('scale-95');
+        giftModalContent.classList.add('scale-100');
+    }, 10);
+    // Kunci scroll halaman belakang
+    document.body.classList.add('overflow-hidden');
+}
 
+function closeGiftModal() {
+    // Animasi scale-down kontainer
+    giftModalContent.classList.remove('scale-100');
+    giftModalContent.classList.add('scale-95');
+    // Sembunyikan overlay setelah animasi selesai
+    setTimeout(() => {
+        giftModal.classList.add('opacity-0', 'pointer-events-none');
+        // Buka kunci scroll halaman belakang
+        document.body.classList.remove('overflow-hidden');
+    }, 300);
+}
+
+// Tutup modal jika area luar (backdrop) diklik
+giftModal.addEventListener('click', function(event) {
+    if (event.target === giftModal) {
+        closeGiftModal();
+    }
+});
+
+// --- Fungsi Salin Teks ke Clipboard ---
+function copyToClipboard(elementId, buttonId) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    const button = document.getElementById(buttonId);
+    const toast = document.getElementById('copy-toast-modal');
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // Ubah tampilan tombol sementara
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check text-sm"></i><span>Oke!</span>';
+        button.classList.replace('bg-amber-500/10', 'bg-emerald-500/20');
+        button.classList.replace('text-amber-400', 'text-emerald-400');
+
+        // Munculkan Toast Notifikasi
+        toast.classList.remove('opacity-0');
+
+        // Kembalikan ke tampilan semula setelah 2.5 detik
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.classList.replace('bg-emerald-500/20', 'bg-amber-500/10');
+            button.classList.replace('text-emerald-400', 'text-amber-400');
+            toast.classList.add('opacity-0');
+        }, 2500);
+    }).catch(err => {
+        console.error('Gagal menyalin teks: ', err);
+        alert('Browser Anda tidak mendukung fitur salin otomatis.');
+    });
+}
         // Countdown Timer
         function startCountdown() {
             const weddingDate = new Date('June 14, 2026 10:00:00').getTime();
@@ -1264,66 +1241,5 @@ function tambahkanKeBukuTamu(nama, kehadiran, pesan) {
 }
           
     </script>
-
-    <!-- ================= PREMIUM MODAL: KADO DIGITAL (ANGPAO ONLINE) ================= -->
-<div id="gift-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
-    <!-- Kontainer Modal -->
-    <div id="gift-modal-content" class="glass-premium max-w-md w-full rounded-[35px] p-6 shadow-2xl relative overflow-hidden transform scale-95 transition-transform duration-300">
-        <!-- Garis Aksen Emas di Atas -->
-        <div class="absolute top-0 inset-x-0 h-[3px] bg-gold-gradient"></div>
-        
-        <!-- Tombol Tutup (Close) -->
-        <button onclick="closeGiftModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-red-500/80 text-stone-300 hover:text-white flex items-center justify-center focus:outline-none transition-all duration-300">
-            <i class="fas fa-times"></i>
-        </button>
-
-        <!-- Header Modal -->
-        <div class="text-center mb-6 mt-4">
-            <div class="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-3 border border-amber-500/20">
-                <i class="fas fa-wallet text-amber-400 text-2xl animate-pulse"></i>
-            </div>
-            <h3 class="font-serif-elegant text-2xl font-bold text-gold-gradient">Kado Digital</h3>
-            <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-widest">Kirim Tanda Kasih & Hadiah</p>
-        </div>
-
-        <p class="text-xs text-stone-300 text-center leading-relaxed mb-6 px-2">
-            Bagi Bapak/Ibu/Saudara/i yang ingin mengirimkan kado digital tanpa mengurangi rasa hormat, dapat melalui rekening di bawah ini:
-        </p>
-
-        <!-- Daftar Rekening -->
-        <div class="space-y-4">
-            <!-- Rekening 1: BCA -->
-            <div class="bg-black/50 border border-white/10 rounded-2xl p-4 flex justify-between items-center relative overflow-hidden group hover:border-amber-500/30 transition-colors">
-                <div class="space-y-1">
-                    <span class="inline-block text-[9px] bg-blue-900/40 text-blue-300 font-extrabold uppercase px-2 py-0.5 rounded border border-blue-500/30">BANK BCA</span>
-                    <p id="acc-modal-bca" class="font-serif-elegant font-bold text-lg text-stone-100 tracking-wider mt-1">4121408273</p>
-                    <p class="text-[10px] text-stone-400">a.n <strong class="text-stone-200">Sudrajat</strong></p>
-                </div>
-                <button onclick="copyToClipboard('acc-modal-bca', 'btn-copy-bca')" id="btn-copy-bca" class="px-3 py-2 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-stone-900 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex flex-col items-center gap-1">
-                    <i class="far fa-copy text-sm"></i>
-                    <span>Salin</span>
-                </button>
-            </div>
-
-            <!-- Rekening 2: Mandiri -->
-            <div class="bg-black/50 border border-white/10 rounded-2xl p-4 flex justify-between items-center relative overflow-hidden group hover:border-amber-500/30 transition-colors">
-                <div class="space-y-1">
-                    <span class="inline-block text-[9px] bg-yellow-900/40 text-yellow-300 font-extrabold uppercase px-2 py-0.5 rounded border border-yellow-500/30">BANK MANDIRI</span>
-                    <p id="acc-modal-mandiri" class="font-serif-elegant font-bold text-lg text-stone-100 tracking-wider mt-1">1760007344581</p>
-                    <p class="text-[10px] text-stone-400">a.n <strong class="text-stone-200">Nurhalimah</strong></p>
-                </div>
-                <button onclick="copyToClipboard('acc-modal-mandiri', 'btn-copy-mandiri')" id="btn-copy-mandiri" class="px-3 py-2 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-stone-900 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex flex-col items-center gap-1">
-                    <i class="far fa-copy text-sm"></i>
-                    <span>Salin</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Notifikasi (Toast) Berhasil Disalin -->
-        <div id="copy-toast-modal" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 p-3 bg-emerald-900/90 border border-emerald-500/50 text-emerald-300 rounded-xl text-[10px] text-center uppercase tracking-widest opacity-0 pointer-events-none transition-opacity duration-300 shadow-2xl backdrop-blur-sm z-50">
-            <i class="fas fa-check-circle mr-1"></i> Nomor Rekening Berhasil Disalin!
-        </div>
-    </div>
-</div>
 </body>
 </html>
