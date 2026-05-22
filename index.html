@@ -772,35 +772,11 @@
                 <!-- Live Wall Container -->
                 <div class="space-y-4 stagger-child stagger-3">
                     <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest flex items-center gap-2">
-                        <i class="far fa-comments text-amber-500"></i> Buku Tamu Digital (<span id="wish-count" class="text-amber-400">3</span>)
+                        <i class="far fa-comments text-amber-500"></i> Buku Tamu Digital (<span id="wish-count" class="text-amber-400">0</span>)
                     </h3>
                     
                     <div id="wishes-container" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                        <!-- Initial Mock Data -->
-                        <div class="glass-premium p-5 rounded-2xl border border-white/5 relative card-animate-in stagger-1">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-bold text-xs text-stone-100">Agus Teo</span>
-                                <span class="text-[9px] bg-green-950 text-green-300 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Hadir</span>
-                            </div>
-                            <p class="text-xs text-stone-300 leading-relaxed">Selamat menempuh hidup baru adikku Ajat dan Iim. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah.</p>
-                        </div>
-
-                        <div class="glass-premium p-5 rounded-2xl border border-white/5 relative card-animate-in stagger-2">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-bold text-xs text-stone-100">Lilis Susanti</span>
-                                <span class="text-[9px] bg-green-950 text-green-300 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Hadir</span>
-                            </div>
-                            <p class="text-xs text-stone-300 leading-relaxed">Bahagia selalu ya adik-adikku tersayang sampai maut memisahkan. Aamiin ya rabbal alamin.</p>
-                        </div>
-
-                        <div class="glass-premium p-5 rounded-2xl border border-white/5 relative card-animate-in stagger-3">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-bold text-xs text-stone-100">Budi Santoso</span>
-                                <span class="text-[9px] bg-amber-950 text-amber-300 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Ragu-ragu</span>
-                            </div>
-                            <p class="text-xs text-stone-300 leading-relaxed">Selamat ya Ajat dan pasangan, semoga seluruh rangkaian acara berjalan dengan lancar tanpa ada kendala apapun.</p>
-                        </div>
-                    </div>
+                       </div>
                 </div>
 
             </div>
@@ -1222,43 +1198,7 @@ function tambahkanKeBukuTamu(nama, kehadiran, pesan) {
     const currentCount = parseInt(countElement.innerText);
     countElement.innerText = currentCount + 1;
 }
-            
-            const name = document.getElementById('form-name').value;
-            const attendance = document.getElementById('form-attendance').value;
-            const message = document.getElementById('form-message').value;
-
-            // Log to console (untuk testing)
-            console.log('RSVP Submitted:', { name, attendance, message });
-
-            // Show success alert
-            const alert = document.getElementById('custom-alert');
-            alert.classList.remove('hidden');
-
-            // Reset form
-            this.reset();
-
-            // Hide alert after 4 seconds
-            setTimeout(() => {
-                alert.classList.add('hidden');
-            }, 4000);
-        });
-
-        // Gift Modal Functions
-        function openGiftModal() {
-            document.getElementById('gift-modal').classList.remove('hidden');
-        }
-
-        function closeGiftModal() {
-            document.getElementById('gift-modal').classList.add('hidden');
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('gift-modal');
-            if (event.target === modal) {
-                closeGiftModal();
-            }
-        });
+          
     </script>
 </body>
 </html>
