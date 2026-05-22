@@ -883,41 +883,45 @@
                 }, 1000); // 1000ms menyesuaikan dengan duration-1000 di HTML
             }, 800);
         });
-                // Intersection Observer untuk trigger animasi saat scroll
+              
+        // ================= INTERSECTION OBSERVER (PERBAIKAN ANIMASI SCROLL) =================
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.15, // Memicu animasi ketika 15% bagian seksi sudah masuk layar
+            rootMargin: '0px 0px -100px 0px' // Memberikan jarak pemicu yang halus
         };
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Trigger section animation
-                    if (entry.target.classList.contains('page-transition-up') ||
-                        entry.target.classList.contains('page-transition-fade') ||
-                        entry.target.classList.contains('page-transition-right') ||
-                        entry.target.classList.contains('page-transition-left')) {
+                    const target = entry.target;
+
+                    // 1. Pemicu utama Animasi Muncul Per Halaman
+                    if (target.classList.contains('page-transition-up') ||
+                        target.classList.contains('page-transition-fade') ||
+                        target.classList.contains('page-transition-right') ||
+                        target.classList.contains('page-transition-left')) {
                         
-                        if (!entry.target.classList.contains('animate__animated')) {
-                            entry.target.classList.add('animate__animated');
-                        }
+                        // Menambahkan kelas untuk mengeksekusi keyframes CSS
+                        target.classList.add('animate-in');
                     }
                     
-                    // Trigger card animations
-                    const cards = entry.target.querySelectorAll('.card-animate-in:not(.animate__animated)');
+                    // 2. Pemicu otomatis untuk elemen kartu internal (Cards)
+                    const cards = target.querySelectorAll('.card-animate-in:not(.animate__animated)');
                     cards.forEach(card => {
                         card.classList.add('animate__animated', 'animate__fadeInUp');
                     });
 
-                    // Trigger stagger animations
-                    const staggerChildren = entry.target.querySelectorAll('.stagger-child:not(.animate__animated)');
-                    staggerChildren.forEach(child => {
+                    // 3. Pemicu otomatis untuk elemen teks berurutan (Stagger)
+                    const staggerChildren = target.querySelectorAll('.stagger-child:not(.animate__animated)');
+                    staggerChildren.forEach((child, index) => {
+                        // Memberikan jeda waktu antar teks agar muncul bergantian secara sinematik
                         setTimeout(() => {
                             child.classList.add('animate__animated', 'animate__fadeInUp');
-                        }, 0);
+                        }, index * 150); 
                     });
 
-                    observer.unobserve(entry.target);
+                    // Hentikan pemantauan seksi ini jika animasi sudah berjalan sekali (mencegah kedip berulang)
+                    observer.unobserve(target);
                 }
             });
         }, observerOptions);
