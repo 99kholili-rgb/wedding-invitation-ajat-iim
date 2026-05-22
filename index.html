@@ -250,7 +250,16 @@
     </style>
 </head>
 <body class="bg-[#091f2c] text-stone-100 overflow-hidden select-none">
-
+<div id="preloader" class="fixed inset-0 z-[999] bg-[#091f2c] flex flex-col items-center justify-center transition-opacity duration-1000">
+        <div class="relative w-24 h-24 flex items-center justify-center mb-6">
+            <div class="absolute inset-0 border-t-2 border-l-2 border-amber-400 rounded-full animate-spin"></div>
+            <div class="absolute inset-3 border-b-2 border-r-2 border-amber-600/50 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+            <i class="fas fa-heart text-amber-500 animate-pulse text-2xl drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"></i>
+        </div>
+        
+        <h2 class="font-serif-elegant text-amber-400 text-lg tracking-widest font-bold mb-2">AJAT & IIM</h2>
+        <p class="text-[9px] text-stone-400 uppercase tracking-[0.4em] animate-pulse">Menyiapkan Undangan...</p>
+    </div>
     <!-- BACKGROUND MUSIC -->
     <audio id="bg-music" loop preload="auto">
         <!-- Tautan Audio Utama (Telah diperbaiki dari 'https://https://' menjadi 'https://') -->
@@ -853,7 +862,21 @@
     </div>
     <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
-        
+        // --- Fungsi Preloader (Loading Screen) ---
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            
+            // Memberikan sedikit jeda agar animasi putaran cincin terlihat utuh (800ms)
+            setTimeout(() => {
+                // Memicu efek fade-out
+                preloader.classList.add('opacity-0');
+                
+                // Menghapus elemen dari DOM agar tidak menghalangi klik (setelah transisi selesai)
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                }, 1000); // 1000ms menyesuaikan dengan duration-1000 di HTML
+            }, 800);
+        });
                 // Intersection Observer untuk trigger animasi saat scroll
         const observerOptions = {
             threshold: 0.1,
