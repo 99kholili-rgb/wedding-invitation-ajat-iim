@@ -247,70 +247,6 @@
             background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
             margin: 2rem 0;
         }
-
-        // --- Fungsi Buka/Tutup Modal Kado Digital ---
-const giftModal = document.getElementById('gift-modal');
-const giftModalContent = document.getElementById('gift-modal-content');
-
-function openGiftModal() {
-    // Tampilkan overlay
-    giftModal.classList.remove('opacity-0', 'pointer-events-none');
-    // Animasi scale-up kontainer
-    setTimeout(() => {
-        giftModalContent.classList.remove('scale-95');
-        giftModalContent.classList.add('scale-100');
-    }, 10);
-    // Kunci scroll halaman belakang
-    document.body.classList.add('overflow-hidden');
-}
-
-function closeGiftModal() {
-    // Animasi scale-down kontainer
-    giftModalContent.classList.remove('scale-100');
-    giftModalContent.classList.add('scale-95');
-    // Sembunyikan overlay setelah animasi selesai
-    setTimeout(() => {
-        giftModal.classList.add('opacity-0', 'pointer-events-none');
-        // Buka kunci scroll halaman belakang
-        document.body.classList.remove('overflow-hidden');
-    }, 300);
-}
-
-// Tutup modal jika area luar (backdrop) diklik
-giftModal.addEventListener('click', function(event) {
-    if (event.target === giftModal) {
-        closeGiftModal();
-    }
-});
-
-// --- Fungsi Salin Teks ke Clipboard ---
-function copyToClipboard(elementId, buttonId) {
-    const textToCopy = document.getElementById(elementId).innerText;
-    const button = document.getElementById(buttonId);
-    const toast = document.getElementById('copy-toast-modal');
-
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        // Ubah tampilan tombol sementara
-        const originalHTML = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check text-sm"></i><span>Oke!</span>';
-        button.classList.replace('bg-amber-500/10', 'bg-emerald-500/20');
-        button.classList.replace('text-amber-400', 'text-emerald-400');
-
-        // Munculkan Toast Notifikasi
-        toast.classList.remove('opacity-0');
-
-        // Kembalikan ke tampilan semula setelah 2.5 detik
-        setTimeout(() => {
-            button.innerHTML = originalHTML;
-            button.classList.replace('bg-emerald-500/20', 'bg-amber-500/10');
-            button.classList.replace('text-emerald-400', 'text-amber-400');
-            toast.classList.add('opacity-0');
-        }, 2500);
-    }).catch(err => {
-        console.error('Gagal menyalin teks: ', err);
-        alert('Browser Anda tidak mendukung fitur salin otomatis.');
-    });
-}
     </style>
 </head>
 <body class="bg-[#091f2c] text-stone-100 overflow-hidden select-none">
@@ -925,6 +861,70 @@ function copyToClipboard(elementId, buttonId) {
 
     <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
+        
+        // --- Fungsi Buka/Tutup Modal Kado Digital ---
+const giftModal = document.getElementById('gift-modal');
+const giftModalContent = document.getElementById('gift-modal-content');
+
+function openGiftModal() {
+    // Tampilkan overlay
+    giftModal.classList.remove('opacity-0', 'pointer-events-none');
+    // Animasi scale-up kontainer
+    setTimeout(() => {
+        giftModalContent.classList.remove('scale-95');
+        giftModalContent.classList.add('scale-100');
+    }, 10);
+    // Kunci scroll halaman belakang
+    document.body.classList.add('overflow-hidden');
+}
+
+function closeGiftModal() {
+    // Animasi scale-down kontainer
+    giftModalContent.classList.remove('scale-100');
+    giftModalContent.classList.add('scale-95');
+    // Sembunyikan overlay setelah animasi selesai
+    setTimeout(() => {
+        giftModal.classList.add('opacity-0', 'pointer-events-none');
+        // Buka kunci scroll halaman belakang
+        document.body.classList.remove('overflow-hidden');
+    }, 300);
+}
+
+// Tutup modal jika area luar (backdrop) diklik
+giftModal.addEventListener('click', function(event) {
+    if (event.target === giftModal) {
+        closeGiftModal();
+    }
+});
+
+// --- Fungsi Salin Teks ke Clipboard ---
+function copyToClipboard(elementId, buttonId) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    const button = document.getElementById(buttonId);
+    const toast = document.getElementById('copy-toast-modal');
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // Ubah tampilan tombol sementara
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check text-sm"></i><span>Oke!</span>';
+        button.classList.replace('bg-amber-500/10', 'bg-emerald-500/20');
+        button.classList.replace('text-amber-400', 'text-emerald-400');
+
+        // Munculkan Toast Notifikasi
+        toast.classList.remove('opacity-0');
+
+        // Kembalikan ke tampilan semula setelah 2.5 detik
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.classList.replace('bg-emerald-500/20', 'bg-amber-500/10');
+            button.classList.replace('text-emerald-400', 'text-amber-400');
+            toast.classList.add('opacity-0');
+        }, 2500);
+    }).catch(err => {
+        console.error('Gagal menyalin teks: ', err);
+        alert('Browser Anda tidak mendukung fitur salin otomatis.');
+    });
+}
         // Intersection Observer untuk trigger animasi saat scroll
         const observerOptions = {
             threshold: 0.1,
