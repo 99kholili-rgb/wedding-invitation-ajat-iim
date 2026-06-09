@@ -1185,88 +1185,116 @@ function copyToClipboard(elementId, buttonId) {
             const countdownInterval = setInterval(updateCountdown, 1000);
         }
 
-        // RSVP Form Submission
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx5KLpQn5GQWIEgQNPjzrJ63EzNwXJH45Tt7u593RtQt2B1Ja_aETnnmQWdwFrfulWE/exec';
-const form = document.getElementById('rsvp-form');
+         </script>
+        
+        <script type="module">
+        // 1. IMPORT FIREBASE
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    
-    // Ambil data dari input
-    const name = document.getElementById('form-name').value;
-    const attendance = document.getElementById('form-attendance').value;
-    const message = document.getElementById('form-message').value;
-    const submitBtn = form.querySelector('button[type="submit"]');
+        // 2. CONFIG DATABASE (Numpang di Firebase Kabayan min)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXPPlXh5J0qxpB8uJ214q9tfBr7bt0jP0",
+            authDomain: "data-pendaftaran-kabayan---ix.firebaseapp.com",
+            projectId: "data-pendaftaran-kabayan---ix",
+            storageBucket: "data-pendaftaran-kabayan---ix.firebasestorage.app",
+            messagingSenderId: "252542186500", 
+            appId: "1:252542186500:web:5c51ab19ddd0dfef50b151"
+        };
 
-    // Ubah status tombol menjadi loading
-    const originalBtnText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengirim...';
-    submitBtn.disabled = true;
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Buat "laci" baru khusus undangan Ajat & Iim
+        const ucapanRef = collection(db, "ucapan_ajat_iim"); 
 
-    // Siapkan FormData sesuai dengan e.parameter di Apps Script
-    const formData = new FormData();
-    formData.append('nama', name);
-    formData.append('kehadiran', attendance);
-    formData.append('pesan', message);
+        // ==============================================================
+        // SISTEM 1: RADAR PEMANTAU DATA REAL-TIME (LIVE GUESTBOOK)
+        // ==============================================================
+        const q = query(ucapanRef, orderBy("timestamp", "desc")); // Urutkan dari yang paling baru
+        const container = document.getElementById('wishes-container');
+        const countElement = document.getElementById('wish-count');
 
-    // Kirim data menggunakan Fetch API
-    fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => {
-            // Tampilkan alert sukses bawaan desain Anda
-            const alert = document.getElementById('custom-alert');
-            alert.classList.remove('hidden');
+        onSnapshot(q, (snapshot) => {
+            container.innerHTML = ""; // Bersihkan kontainer setiap ada update
+            countElement.innerText = snapshot.size; // Update otomatis angka jumlah ucapan
 
-            // Tambahkan ucapan secara instan ke Buku Tamu UI (tanpa perlu refresh)
-            tambahkanKeBukuTamu(name, attendance, message);
+            if (snapshot.empty) {
+                container.innerHTML = `<p class="text-xs text-stone-500 text-center italic mt-4">Jadilah yang pertama memberikan doa restu...</p>`;
+                return;
+            }
 
-            // Reset form dan tombol
-            form.reset();
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                
+                // Atur warna badge kehadiran
+                let badgeClass = '';
+                if(data.kehadiran === 'Hadir') badgeClass = 'bg-green-950 text-green-300 border-green-500/30';
+                else if(data.kehadiran === 'Ragu-ragu') badgeClass = 'bg-amber-950 text-amber-300 border-amber-500/30';
+                else badgeClass = 'bg-red-950 text-red-300 border-red-500/30';
 
-            // Sembunyikan alert setelah 4 detik
-            setTimeout(() => {
-                alert.classList.add('hidden');
-            }, 4000);
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            alert('Maaf, terjadi kesalahan saat mengirim data. Silakan coba lagi.');
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
+                const newWish = document.createElement('div');
+                newWish.className = 'glass-premium p-4 rounded-2xl border border-white/5 relative animate__animated animate__fadeInDown';
+                newWish.innerHTML = `
+                    <div class="flex justify-between items-center mb-3 gap-2">
+                        <span class="font-bold text-xs text-amber-100 truncate tracking-wide">${data.nama}</span>
+                        <span class="text-[8px] ${badgeClass} border px-2 py-0.5 rounded-full font-bold uppercase tracking-widest whitespace-nowrap">${data.kehadiran}</span>
+                    </div>
+                    <p class="text-[11px] text-stone-300 leading-relaxed font-light italic">"${data.pesan}"</p>
+                `;
+                container.appendChild(newWish);
+            });
         });
-});
 
-// Fungsi pembantu untuk memunculkan ucapan baru langsung di layar tamu
-function tambahkanKeBukuTamu(nama, kehadiran, pesan) {
-    const container = document.getElementById('wishes-container');
-    const countElement = document.getElementById('wish-count');
-    
-    // Tentukan warna badge berdasarkan kehadiran
-    let badgeClass = '';
-    if(kehadiran === 'Hadir') badgeClass = 'bg-green-950 text-green-300';
-    else if(kehadiran === 'Ragu-ragu') badgeClass = 'bg-amber-950 text-amber-300';
-    else badgeClass = 'bg-red-950 text-red-300';
+        // ==============================================================
+        // SISTEM 2: PENGIRIMAN DATA DARI FORM KE FIREBASE
+        // ==============================================================
+        const form = document.getElementById('rsvp-form');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('form-name').value;
+            const attendance = document.getElementById('form-attendance').value;
+            const message = document.getElementById('form-message').value;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            // Animasi tombol loading
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunci Doa...';
+            submitBtn.disabled = true;
 
-    // Buat elemen HTML baru
-    const newWish = document.createElement('div');
-    newWish.className = 'glass-premium p-5 rounded-2xl border border-white/5 relative animate__animated animate__fadeInDown';
-    newWish.innerHTML = `
-        <div class="flex justify-between items-center mb-2">
-            <span class="font-bold text-xs text-stone-100">${nama}</span>
-            <span class="text-[9px] ${badgeClass} px-3 py-1 rounded-full font-bold uppercase tracking-wider">${kehadiran}</span>
-        </div>
-        <p class="text-xs text-stone-300 leading-relaxed">${pesan}</p>
-    `;
+            try {
+                // Tembak data ke Firebase
+                await addDoc(ucapanRef, {
+                    nama: name,
+                    kehadiran: attendance,
+                    pesan: message,
+                    timestamp: serverTimestamp() // Catat waktu asli dari server Google
+                });
 
-    // Sisipkan di urutan paling atas
-    container.insertBefore(newWish, container.firstChild);
+                // Munculkan alert sukses bawaan min
+                const alertInfo = document.getElementById('custom-alert');
+                alertInfo.classList.remove('hidden');
+                
+                // Reset form & tombol
+                form.reset();
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
 
-    // Update jumlah ucapan (opsional)
-    const currentCount = parseInt(countElement.innerText);
-    countElement.innerText = currentCount + 1;
-}
-          
+                // Sembunyikan alert setelah 4 detik
+                setTimeout(() => {
+                    alertInfo.classList.add('hidden');
+                }, 4000);
+
+            } catch (error) {
+                console.error("Gagal mengirim:", error);
+                alert("Maaf, gagal mengirim ucapan. Pastikan koneksi internet stabil.");
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
     </script>
-</body>
+          
+   </body>
 </html>
