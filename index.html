@@ -775,7 +775,7 @@
                     </div>
 
                     <button type="submit" class="w-full py-4 bg-gold-gradient text-stone-900 font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-xl hover:shadow-2xl active:scale-95">
-                        Kirim Konfirmasi & Doa
+                        Kirim Konfirmasi via WA
                     </button>
                 </form>
 
@@ -1270,8 +1270,21 @@ function copyToClipboard(elementId, buttonId) {
                     nama: name,
                     kehadiran: attendance,
                     pesan: message,
-                    timestamp: serverTimestamp() // Catat waktu asli dari server Google
+                    timestamp: serverTimestamp() 
                 });
+
+                // ==========================================
+                // FITUR BARU: NOTIFIKASI WA KE PENGANTIN 📲
+                // ==========================================
+                // ⚠️ Ganti dengan nomor WA Ajat atau Iim (Wajib awalan 62)
+                const nomorPengantin = "6285890337121"; 
+                
+                const pesanWA = `Halo Ajat & Iim! 💍✨\n\nSaya sudah konfirmasi kehadiran di undangan digital kalian:\n\n*Nama:* ${name}\n*Kehadiran:* ${attendance}\n*Doa/Pesan:* "${message}"\n\nSemoga dilancarkan sampai hari H ya! 🙏`;
+                
+                const linkWA = `https://wa.me/${nomorPengantin}?text=${encodeURIComponent(pesanWA)}`;
+                
+                // Buka WhatsApp di tab baru agar undangan tidak tertutup
+                window.open(linkWA, '_blank');
 
                 // Munculkan alert sukses bawaan min
                 const alertInfo = document.getElementById('custom-alert');
